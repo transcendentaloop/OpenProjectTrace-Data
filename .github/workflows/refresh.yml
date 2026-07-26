@@ -3,6 +3,7 @@ name: Update public data
 on:
   schedule:
     - cron: "23 2 * * *"
+    - cron: "0 4 * * 5"
   workflow_dispatch:
 
 permissions:
@@ -23,9 +24,10 @@ jobs:
           AUTOMATION_REPOSITORY: ${{ secrets.AUTOMATION_REPOSITORY }}
           AUTOMATION_DEPLOY_KEY: ${{ secrets.AUTOMATION_DEPLOY_KEY }}
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
+          AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
         shell: bash
         run: |
-          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" ]]; then
+          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" ]]; then
             echo "::error::Required private automation configuration is missing."
             exit 1
           fi
@@ -46,4 +48,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
+          AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
+          AUTOMATION_TRIGGER: ${{ github.event.schedule }}
         uses: ./.automation
