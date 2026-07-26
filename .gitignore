@@ -1,0 +1,12 @@
+*.log
+*.tmp
+.env
+.env.*
+!.env.example
+.dev.vars
+.venv/
+__pycache__/
+runtime-data/
+generated-data/
+product/
+pipeline/
