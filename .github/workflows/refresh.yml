@@ -5,6 +5,13 @@ on:
     - cron: "23 2 * * *"
     - cron: "0 4 * * 5"
   workflow_dispatch:
+    inputs:
+      update:
+        description: Update set
+        required: true
+        default: primary
+        type: choice
+        options: [primary, supplemental]
 
 permissions:
   contents: write
@@ -49,5 +56,5 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
-          AUTOMATION_TRIGGER: ${{ github.event.schedule }}
+          AUTOMATION_TRIGGER: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && '0 4 * * 5' || github.event.schedule }}
         uses: ./.automation
