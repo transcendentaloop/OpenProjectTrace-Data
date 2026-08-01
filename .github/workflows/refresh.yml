@@ -32,9 +32,10 @@ jobs:
           AUTOMATION_DEPLOY_KEY: ${{ secrets.AUTOMATION_DEPLOY_KEY }}
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
+          FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
         shell: bash
         run: |
-          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" ]]; then
+          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" || -z "$FREELLM_API_KEY" ]]; then
             echo "::error::Required private automation configuration is missing."
             exit 1
           fi
@@ -56,5 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
+          FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
           AUTOMATION_TRIGGER: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && '0 4 * * 5' || github.event.schedule }}
         uses: ./.automation
