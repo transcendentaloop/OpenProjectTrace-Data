@@ -2,8 +2,14 @@ name: Update public data
 
 on:
   schedule:
+    - cron: "0 0 * * *"
     - cron: "23 2 * * *"
     - cron: "0 4 * * 5"
+    - cron: "0 5 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 13 * * *"
+    - cron: "0 17 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       update:
@@ -11,7 +17,7 @@ on:
         required: true
         default: primary
         type: choice
-        options: [primary, supplemental]
+        options: [primary, supplemental, github-window]
 
 permissions:
   contents: write
@@ -58,5 +64,7 @@ jobs:
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
           FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
+          AUTOMATION_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'github-window' && 'github-window' || github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && 'supplemental' || github.event_name == 'schedule' && github.event.schedule != '23 2 * * *' && github.event.schedule != '0 4 * * 5' && 'github-window' || 'primary' }}
+          GITHUB_WINDOW_SHARD: ${{ github.event.schedule == '23 2 * * *' && '0' || github.event.schedule == '0 0 * * *' && '1' || github.event.schedule == '0 5 * * *' && '2' || github.event.schedule == '0 9 * * *' && '3' || github.event.schedule == '0 13 * * *' && '4' || github.event.schedule == '0 17 * * *' && '5' || github.event.schedule == '0 21 * * *' && '6' || '0' }}
           AUTOMATION_TRIGGER: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && '0 4 * * 5' || github.event.schedule }}
         uses: ./.automation
