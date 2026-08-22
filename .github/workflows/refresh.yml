@@ -10,6 +10,7 @@ on:
     - cron: "0 13 * * *"
     - cron: "0 17 * * *"
     - cron: "0 21 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
     inputs:
       update:
@@ -65,6 +66,6 @@ jobs:
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
           FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
           AUTOMATION_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'github-window' && 'github-window' || github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && 'supplemental' || github.event_name == 'schedule' && github.event.schedule != '23 2 * * *' && github.event.schedule != '0 4 * * 5' && 'github-window' || 'primary' }}
-          GITHUB_WINDOW_SHARD: ${{ github.event.schedule == '23 2 * * *' && '0' || github.event.schedule == '0 0 * * *' && '1' || github.event.schedule == '0 5 * * *' && '2' || github.event.schedule == '0 9 * * *' && '3' || github.event.schedule == '0 13 * * *' && '4' || github.event.schedule == '0 17 * * *' && '5' || github.event.schedule == '0 21 * * *' && '6' || '0' }}
+          GITHUB_WINDOW_SHARD: ${{ github.event.schedule == '0 0 * * *' && '0' || github.event.schedule == '0 5 * * *' && '1' || github.event.schedule == '0 9 * * *' && '2' || github.event.schedule == '0 13 * * *' && '3' || github.event.schedule == '0 17 * * *' && '4' || github.event.schedule == '0 21 * * *' && '5' || github.event.schedule == '0 23 * * *' && '6' || '0' }}
           AUTOMATION_TRIGGER: ${{ github.event_name == 'workflow_dispatch' && inputs.update == 'supplemental' && '0 4 * * 5' || github.event.schedule }}
         uses: ./.automation
