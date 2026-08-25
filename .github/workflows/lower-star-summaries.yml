@@ -1,0 +1,54 @@
+name: Backfill lower-star summaries
+
+on:
+  schedule:
+    - cron: "15 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lower-star-openrouter-summaries
+  cancel-in-progress: false
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Check configuration
+        id: config
+        env:
+          AUTOMATION_REPOSITORY: ${{ secrets.AUTOMATION_REPOSITORY }}
+          AUTOMATION_DEPLOY_KEY: ${{ secrets.AUTOMATION_DEPLOY_KEY }}
+          AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
+          AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
+          FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
+        shell: bash
+        run: |
+          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" || -z "$FREELLM_API_KEY" ]]; then
+            echo "::error::Required private automation configuration is missing."
+            exit 1
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare automation
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.config.outputs.ready == 'true'
+        with:
+          repository: ${{ secrets.AUTOMATION_REPOSITORY }}
+          ssh-key: ${{ secrets.AUTOMATION_DEPLOY_KEY }}
+          path: .automation
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Summarize with OpenRouter Ox Alpha
+        if: steps.config.outputs.ready == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
+          AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
+          FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
+          AUTOMATION_MODE: summary-lower-openrouter
+        uses: ./.automation
