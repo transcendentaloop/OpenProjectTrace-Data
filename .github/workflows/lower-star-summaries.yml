@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "15 */3 * * *"
   workflow_dispatch:
+    inputs:
+      batch_size:
+        description: Maximum model calls for this validation or backfill batch
+        required: true
+        default: "1"
 
 permissions:
   contents: read
@@ -51,4 +56,5 @@ jobs:
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
           FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
           AUTOMATION_MODE: summary-lower-openrouter
+          LOWER_STAR_SUMMARY_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.batch_size || '100' }}
         uses: ./.automation
