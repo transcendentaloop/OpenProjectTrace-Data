@@ -30,9 +30,10 @@ jobs:
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
           FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         shell: bash
         run: |
-          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" || -z "$FREELLM_API_KEY" ]]; then
+          if [[ -z "$AUTOMATION_REPOSITORY" || -z "$AUTOMATION_DEPLOY_KEY" || -z "$AUTOMATION_CONFIG_B64" || -z "$AUTOMATION_AUXILIARY_CONFIG_B64" || -z "$FREELLM_API_KEY" || -z "$OPENROUTER_API_KEY" ]]; then
             echo "::error::Required private automation configuration is missing."
             exit 1
           fi
@@ -55,6 +56,7 @@ jobs:
           AUTOMATION_CONFIG_B64: ${{ secrets.AUTOMATION_CONFIG_B64 }}
           AUTOMATION_AUXILIARY_CONFIG_B64: ${{ secrets.AUTOMATION_AUXILIARY_CONFIG_B64 }}
           FREELLM_API_KEY: ${{ secrets.FREELLM_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           AUTOMATION_MODE: summary-lower-openrouter
           LOWER_STAR_SUMMARY_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.batch_size || '100' }}
         uses: ./.automation
