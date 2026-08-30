@@ -1,0 +1,253 @@
+{
+  "$schema": "../../AgentRegistry/schemas/project-agent-context.v1.schema.json",
+  "schemaVersion": "project-agent-context/v1",
+  "projectId": "open-project-trace-data",
+  "boundaryRef": "resource-infra-os:project:open-project-trace-data",
+  "profile": "publication",
+  "reviewedAt": "2026-08-31",
+  "reviewPolicy": {
+    "maxAgeDays": 30,
+    "validationReceiptPath": null
+  },
+  "summary": "Public machine-readable OpenProjectTrace snapshot authority whose mutable data ref is verified through exact commits, JSON contracts, metadata freshness, and bounded GitHub Actions evidence.",
+  "applicability": {
+    "runtime": {
+      "status": "not-applicable",
+      "reason": "GitHub Actions jobs are episodic publication executions, not a project-owned long-running service runtime."
+    },
+    "logs": { "status": "applicable" },
+    "persistentState": {
+      "status": "not-applicable",
+      "reason": "The public data branch is modeled as a publication artifact; private pipeline state and inputs remain with their owning project."
+    },
+    "artifacts": { "status": "applicable" },
+    "deployment": { "status": "applicable" },
+    "ui": {
+      "status": "not-applicable",
+      "reason": "The repository publishes JSON for machine consumers and owns no human application interface."
+    }
+  },
+  "readFirst": [
+    {
+      "path": "README.md",
+      "purpose": "Understand the public-data-only boundary and separation from private inputs and processing.",
+      "when": "Before any repository or publication work.",
+      "budgets": ["minimal", "standard", "diagnostic"],
+      "maxBytes": 4096
+    },
+    {
+      "path": "docs/publication-operations.md",
+      "purpose": "Use the exact provenance, freshness, log, rollback, and handoff evidence chain.",
+      "when": "Before verification, manual refresh, diagnosis, rollback, or handoff.",
+      "budgets": ["minimal", "standard", "diagnostic"],
+      "maxBytes": 12288
+    },
+    {
+      "path": ".github/workflows/refresh.yml",
+      "purpose": "Inspect the actual scheduled/manual publication modes, permissions, concurrency, and private automation boundary.",
+      "when": "When publication scheduling, modes, permissions, or failures are involved.",
+      "budgets": ["standard", "diagnostic"],
+      "maxBytes": 12288
+    },
+    {
+      "path": ".github/workflows/lower-star-summaries.yml",
+      "purpose": "Keep summary backfill separate from the public-data publication authority.",
+      "when": "When lower-star summary freshness or provider failures are involved.",
+      "budgets": ["diagnostic"],
+      "maxBytes": 12288
+    }
+  ],
+  "commands": [
+    {
+      "id": "source-diff-check",
+      "title": "Check source-tree patch integrity",
+      "category": "verify",
+      "purpose": "Reject whitespace and conflict-marker defects in the public workflow, manifest, verifier, and documentation changes.",
+      "argv": ["git", "diff", "--check", "HEAD"],
+      "cwd": ".",
+      "risk": "read-only",
+      "environments": ["local"],
+      "timeoutSeconds": 30,
+      "preconditions": ["Run from the publication repository checkout."],
+      "toolRefs": ["git"],
+      "credentialScopeRefs": [],
+      "when": "After source-controlled publication or governance changes.",
+      "successContract": "Git reports no patch whitespace or conflict defects.",
+      "evidenceProduced": "Git diff-check exit code.",
+      "runbookRef": "docs/publication-operations.md",
+      "budgets": ["minimal", "standard", "diagnostic"]
+    },
+    {
+      "id": "verify-publication",
+      "title": "Verify the fetched public data snapshot",
+      "category": "verify",
+      "purpose": "Validate required blobs, JSON parsing, metadata schema, resolved revision, and generated-at freshness without private automation.",
+      "argv": ["python3", "scripts/verify-publication.py"],
+      "cwd": ".",
+      "risk": "read-only",
+      "environments": ["local", "github-public"],
+      "timeoutSeconds": 120,
+      "preconditions": ["Fetch origin/data first; the command intentionally does not mutate remote-tracking refs.", "The data snapshot is expected to be no older than 48 hours."],
+      "toolRefs": ["python", "git"],
+      "credentialScopeRefs": [],
+      "when": "Before consumer freshness claims and after a publication run.",
+      "successContract": "All required data files exist, every JSON file parses, schema_version is 3, candidate_count is positive, and generated_at is within 48 hours.",
+      "evidenceProduced": "Bounded JSON containing the exact data revision, generated_at, age, counts, and Git blob sizes.",
+      "runbookRef": "docs/publication-operations.md",
+      "budgets": ["minimal", "standard", "diagnostic"]
+    },
+    {
+      "id": "published-data-ref",
+      "title": "Resolve the remote public data ref",
+      "category": "status",
+      "purpose": "Read the authoritative remote data branch SHA independently from the local remote-tracking ref.",
+      "argv": ["git", "ls-remote", "--exit-code", "origin", "refs/heads/data"],
+      "cwd": ".",
+      "risk": "read-only",
+      "environments": ["github-public"],
+      "timeoutSeconds": 30,
+      "preconditions": ["Network access to the public Git remote is allowed."],
+      "toolRefs": ["git"],
+      "credentialScopeRefs": [],
+      "when": "When checking publication visibility or local/remote freshness alignment.",
+      "successContract": "The remote returns exactly one refs/heads/data SHA; compare it with the fetched ref before claiming alignment.",
+      "evidenceProduced": "Remote public data branch SHA.",
+      "runbookRef": "docs/publication-operations.md",
+      "budgets": ["standard", "diagnostic"]
+    },
+    {
+      "id": "publication-refresh",
+      "title": "Dispatch a reviewed primary publication refresh",
+      "category": "release",
+      "purpose": "Invoke the repository-owned GitHub Actions entrypoint that delegates validated generation to private automation.",
+      "argv": ["gh", "workflow", "run", "refresh.yml", "--repo", "transcendentaloop/OpenProjectTrace-Data", "--ref", "main", "-f", "update=primary"],
+      "cwd": ".",
+      "risk": "external-write",
+      "environments": ["github-publication"],
+      "timeoutSeconds": 60,
+      "preconditions": ["GitHub CLI is installed and authenticated with reviewed workflow permission.", "The current main commit, update mode, previous data SHA, and last verifier output have been reviewed.", "Private automation secrets remain configured only in GitHub and are never copied locally."],
+      "toolRefs": ["gh", "github-actions"],
+      "credentialScopeRefs": ["github:open-project-trace-data-publish"],
+      "when": "Only for an explicitly approved manual publication refresh; scheduled runs need no local dispatch.",
+      "successContract": "GitHub accepts one refresh.yml dispatch; completion still requires the exact run conclusion, a new or explicitly unchanged data SHA, and post-run publication verification.",
+      "evidenceProduced": "Workflow dispatch/run locator followed by separate run conclusion, data SHA, and freshness verification.",
+      "runbookRef": "docs/publication-operations.md",
+      "confirmation": "Require explicit user confirmation after showing the update mode, current main commit, previous validated data SHA, credential scope, and public-write impact.",
+      "backup": "Record the exact current data SHA and verifier output; the private automation owner must confirm a recoverable previous dataset before destructive generation changes.",
+      "rollback": "Republish an exact previously validated snapshot through the owning automation, then repeat remote-ref, JSON, freshness, and consumer-visibility checks; never manually force-push private inputs.",
+      "budgets": ["diagnostic"]
+    }
+  ],
+  "capabilities": {
+    "provides": [],
+    "consumes": [
+      {
+        "capabilityRef": "project-agent-context-resolution",
+        "versionRange": "project-agent-context/v1",
+        "requiredFor": "Bounded publication, freshness, and diagnostic discovery.",
+        "failureOwner": "agent-registry",
+        "fallback": "Read README.md and docs/publication-operations.md directly.",
+        "statusCommandRef": "published-data-ref"
+      },
+      {
+        "capabilityRef": "free-llm-provider-gateway",
+        "versionRange": "v1",
+        "requiredFor": "Private automation summary generation selected by the owning publication workflow.",
+        "failureOwner": "free-llm",
+        "fallback": "The workflow fails closed or publishes only data that already passed the private policy; this public repository does not bypass provider governance.",
+        "statusCommandRef": null
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "id": "private-project-trace-automation",
+      "ownerProject": "open-project-trace",
+      "contractRef": "OpenProjectTrace:README.md",
+      "versionRange": "v1",
+      "requiredFor": "Selection, evaluation, generation, and validated publication of the public snapshot.",
+      "failureOwner": "open-project-trace",
+      "fallback": "Do not publish new bytes; retain the last verified public snapshot and report freshness decay.",
+      "statusCommandRef": "published-data-ref"
+    }
+  ],
+  "logSources": [
+    {
+      "id": "github-publication-runs",
+      "component": "open-project-trace-data-publication",
+      "environments": ["github-publication"],
+      "kind": "event-store",
+      "boundary": "remote",
+      "selector": {
+        "adapter": "unregistered",
+        "repository": "transcendentaloop/OpenProjectTrace-Data",
+        "workflows": ["refresh.yml", "lower-star-summaries.yml"]
+      },
+      "readOnly": true,
+      "requiresUserOptIn": true,
+      "boundedRead": {
+        "timeoutSeconds": 30,
+        "maxLines": 200,
+        "maxBytes": 131072,
+        "defaultLookbackSeconds": 86400
+      },
+      "freshness": {
+        "expectedMaxAgeSeconds": 86400,
+        "clock": "UTC"
+      },
+      "correlationFields": ["run_id", "workflow", "event", "head_sha", "data_sha", "generated_at"],
+      "sensitivityClass": "internal",
+      "redactionProfile": "workspace-default/v1",
+      "credentialScopeRef": null,
+      "runbookRef": "docs/publication-operations.md",
+      "fallbackSourceRefs": []
+    }
+  ],
+  "runbooks": [
+    {
+      "id": "publication-operations",
+      "path": "docs/publication-operations.md",
+      "when": "Verifying freshness, dispatching publication, diagnosing a run, rolling back, or handing off."
+    }
+  ],
+  "runtimes": [],
+  "state": {
+    "applicability": {
+      "status": "not-applicable",
+      "reason": "The public data branch is modeled as a publication artifact; private pipeline state and inputs remain with their owning project."
+    },
+    "authorities": [],
+    "backupPolicyRef": null,
+    "restoreVerifyCommandRef": null,
+    "rpo": null,
+    "rto": null
+  },
+  "artifacts": [
+    {
+      "id": "public-data-snapshot",
+      "kind": "git-branch-json-dataset",
+      "buildCommandRef": "publication-refresh",
+      "releaseAuthority": ".github/workflows/refresh.yml delegates to scoped private automation and is the only declared writer of the public data branch.",
+      "revisionPolicy": "data is a mutable latest-snapshot ref; reproducible consumers retain the exact resolved commit and blob IDs, while meta.json.generated_at supplies content freshness.",
+      "checksumPolicy": "Git commit and blob IDs identify published bytes; no additional signed checksum manifest is currently published.",
+      "sbomPolicy": "A software SBOM is not applicable to the JSON dataset; generator software remains private and separately governed.",
+      "provenancePolicy": "A successful run, main commit, data commit, and generated_at value are separate evidence; scripts/verify-publication.py validates only the public layer.",
+      "publishVerifyCommandRef": "verify-publication",
+      "rollback": "No repository-owned rollback index is guaranteed; the automation owner must preserve or recreate a previous validated dataset and republish it through the reviewed workflow."
+    }
+  ],
+  "agentAssets": [
+    {
+      "componentRef": "git:tool:agentctl",
+      "requiredFor": "Resolve bounded publication context, remote log boundaries, and release gates.",
+      "installRef": "/home/x/workspace/AgentRegistry/bin/agentctl",
+      "disableRef": "Read README.md and docs/publication-operations.md directly if the optional resolver is unavailable."
+    }
+  ],
+  "taskSystem": null,
+  "securityPolicyRefs": [
+    ".github/workflows/refresh.yml",
+    ".github/workflows/lower-star-summaries.yml",
+    "docs/publication-operations.md"
+  ]
+}
