@@ -233,6 +233,11 @@
       "sbomPolicy": "A software SBOM is not applicable to the JSON dataset; generator software remains private and separately governed.",
       "provenancePolicy": "A successful run, main commit, data commit, and generated_at value are separate evidence; scripts/verify-publication.py validates only the public layer.",
       "publishVerifyCommandRef": "verify-publication",
+      "publication": {
+        "mode": "external-artifact",
+        "verificationAccess": "public-unauthenticated",
+        "evidenceBoundary": "The verifier checks the independently fetched public data ref, exact revision, required blobs, schema, counts, and freshness without access to private automation."
+      },
       "rollback": "No repository-owned rollback index is guaranteed; the automation owner must preserve or recreate a previous validated dataset and republish it through the reviewed workflow."
     }
   ],
