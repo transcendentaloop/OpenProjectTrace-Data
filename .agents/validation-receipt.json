@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "project-validation-receipt/v1",
+  "projectId": "open-project-trace-data",
+  "observedAt": "2026-08-31T05:18:10.068444Z",
+  "scope": [
+    "source-validation",
+    "public-snapshot-verification"
+  ],
+  "result": "passed",
+  "source": {
+    "manifestDigest": "sha256:d9620b3a885def371abfd333024024244659b43a7cba37e9ff0d9365345dd6da",
+    "sourceRevision": "155ae42e1bbfde94dc05dbe39a52330623ea3ca1",
+    "sourceTreeDigest": "sha256:eee6b3d7a5296b989d757642198745992a89e0f597ea929e17ea90b5db18e3f4",
+    "workingTreeClean": true
+  },
+  "commands": [
+    {
+      "commandRef": "source-diff-check",
+      "outcome": "passed",
+      "exitCode": 0,
+      "durationMs": 11,
+      "startedAt": "2026-08-31T05:18:10.056913Z",
+      "finishedAt": "2026-08-31T05:18:10.068444Z",
+      "observerBasis": "caller-observed-execution",
+      "outcomeConfirmation": {
+        "assertedBy": "codex",
+        "assertedAt": "2026-08-31T05:18:10.104969Z",
+        "basis": "machine-asserted-contract",
+        "statement": "The caller confirmed plan sha256:a4c11d4f53fa88ba898bedd34ea7becdf705a5402fa64f7a74a49a50b8d427a8 and that exit zero machine-asserts the declared success contract for source-diff-check; the runner observed exit zero with an unchanged source fingerprint."
+      },
+      "summary": "Command exited 0 after 11 ms; output bytes=0, redacted=0, truncated=false.",
+      "evidenceRefs": [
+        "observation:source-diff-check"
+      ]
+    },
+    {
+      "commandRef": "verify-publication",
+      "outcome": "passed",
+      "exitCode": 0,
+      "durationMs": 4623,
+      "startedAt": "2026-08-31T05:18:10.153801Z",
+      "finishedAt": "2026-08-31T05:18:14.777708Z",
+      "observerBasis": "caller-observed-execution",
+      "outcomeConfirmation": {
+        "assertedBy": "codex",
+        "assertedAt": "2026-08-31T05:18:14.800875Z",
+        "basis": "machine-asserted-contract",
+        "statement": "The caller confirmed plan sha256:a4c11d4f53fa88ba898bedd34ea7becdf705a5402fa64f7a74a49a50b8d427a8 and that exit zero machine-asserts the declared success contract for verify-publication; the runner observed exit zero with an unchanged source fingerprint."
+      },
+      "summary": "Command exited 0 after 4623 ms; output bytes=355, redacted=0, truncated=false. Sanitized output tail:\n{\"age_hours\": 3.4, \"candidate_count\": 9086, \"generated_at\": \"2026-08-31T01:52:53.092804+00:00\", \"ref\": \"origin/data\", \"required_blob_sizes\": {\".nojekyll\": 0, \"catalog.json\": 63934236, \"facets.json\": 5177, \"meta.json\": 470, \"search-index.json\": 9959487}, \"revision\": \"99d9ad3899b9b0f95c96d2a7730b59f67b6f3c51\", \"status\": \"ok\", \"summary_ready_count\": 9084}",
+      "evidenceRefs": [
+        "observation:verify-publication"
+      ]
+    }
+  ],
+  "evidenceRefs": [
+    {
+      "id": "observation:source-diff-check",
+      "kind": "summary",
+      "location": "receipt:commands/source-diff-check",
+      "digest": "sha256:c3351514a49800c996fce2eafbd964c0b7ffcd100ef6225bf8d3e158ae0473dd"
+    },
+    {
+      "id": "observation:verify-publication",
+      "kind": "summary",
+      "location": "receipt:commands/verify-publication",
+      "digest": "sha256:8a93d8f79ec5761ed9a57a48157a67cb910df83eeae54453a65029c0ea711027"
+    }
+  ],
+  "uncheckedLayers": [],
+  "residualRisks": [
+    "Private selection/evaluation policy, private processing source, and GitHub Actions execution were outside this public-repository scope.",
+    "The remote data ref was fetched and compared before the run, but the status-class ls-remote probe is outside the observe runner whitelist and is not receipt command evidence.",
+    "The mutable data branch may advance after this source-bound receipt; reproducible consumers must retain the recorded data revision and blob identities."
+  ],
+  "taskRefs": [
+    "TASK-1130",
+    "WI-995"
+  ]
+}

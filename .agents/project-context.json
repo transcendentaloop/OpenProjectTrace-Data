@@ -7,7 +7,7 @@
   "reviewedAt": "2026-08-31",
   "reviewPolicy": {
     "maxAgeDays": 30,
-    "validationReceiptPath": null
+    "validationReceiptPath": ".agents/validation-receipt.json"
   },
   "summary": "Public machine-readable OpenProjectTrace snapshot authority whose mutable data ref is verified through exact commits, JSON contracts, metadata freshness, and bounded GitHub Actions evidence.",
   "applicability": {
