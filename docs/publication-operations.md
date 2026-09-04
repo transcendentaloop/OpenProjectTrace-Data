@@ -37,6 +37,21 @@ The only declared maintainer release entry is manual dispatch of
 manual runs invoke private automation. Do not reproduce that implementation or
 its secrets in this public repository.
 
+The private automation checkout must use the exact full commit in
+`.github/automation-source.json`; branch names, tags, abbreviated SHAs, and a
+missing `ref` fail closed. Resolve a replacement only from an authoritative Git
+ref in the owner repository, verify that exact commit contains the declared
+root `action.yml`, update both workflow references and the source record in one
+change, then run:
+
+```bash
+python3 scripts/verify-workflow-contract.py
+```
+
+This local check reads public source only. It neither resolves repository
+secrets nor proves that the private action can execute with its production
+configuration.
+
 Before dispatch, record the current public data SHA and successful local
 verification summary. After dispatch:
 

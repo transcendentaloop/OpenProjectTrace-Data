@@ -1,77 +1,50 @@
 {
   "schemaVersion": "project-validation-receipt/v1",
   "projectId": "open-project-trace-data",
-  "observedAt": "2026-09-04T21:49:54.531429Z",
+  "observedAt": "2026-09-04T22:29:11.734138Z",
   "scope": [
-    "source-validation",
-    "public-snapshot-verification"
+    "private-automation-ref-contract"
   ],
   "result": "passed",
   "source": {
-    "manifestDigest": "sha256:eb88bb0e2b4b68fec697473e31ba1a1545f65944a8d291c835a082037a5a52ce",
-    "sourceRevision": "0a9877c8dbfca1f59d68d5673cf5c8969d37c89a",
-    "sourceTreeDigest": "sha256:481f31660a6055e8c0d52c3cb15d221c8b7a6b74e2433195d249c815ea1bee54",
+    "manifestDigest": "sha256:f9948d3f0cf52b51fe4ff4e6a0a20444f4a90957aae81212458c9b8f0b5b2e9b",
+    "sourceRevision": "ee6dba9fbf7d9b0c54d6b0607bc65d23a1bafde7",
+    "sourceTreeDigest": "sha256:8a8a331f96a1a67dc212eda40bcb67bd047660aacb82b2b5b45f9f5d5af5366a",
     "workingTreeClean": true
   },
   "workspaceInputs": [],
   "commands": [
     {
-      "commandRef": "source-diff-check",
+      "commandRef": "verify-workflow-contract",
       "outcome": "passed",
       "exitCode": 0,
-      "durationMs": 3,
-      "startedAt": "2026-09-04T21:49:54.527578Z",
-      "finishedAt": "2026-09-04T21:49:54.531429Z",
+      "durationMs": 32,
+      "startedAt": "2026-09-04T22:29:11.701902Z",
+      "finishedAt": "2026-09-04T22:29:11.734138Z",
       "observerBasis": "caller-observed-execution",
       "outcomeConfirmation": {
         "assertedBy": "codex@workstation",
-        "assertedAt": "2026-09-04T21:49:54.540857Z",
+        "assertedAt": "2026-09-04T22:29:11.743223Z",
         "basis": "machine-asserted-contract",
-        "statement": "The caller confirmed plan sha256:a8b1fa76f613e09b166325c3d5f8f4b7e2aca1f02d60307a43b80fb7b7c5be3a and that exit zero machine-asserts the declared success contract for source-diff-check; the runner observed exit zero with unchanged project and declared workspace input fingerprints."
+        "statement": "The caller confirmed plan sha256:0e820b0342f1ae346abad02a013b417efe0b4d770ab39473a72609390d3b5a87 and that exit zero machine-asserts the declared success contract for verify-workflow-contract; the runner observed exit zero with unchanged project and declared workspace input fingerprints."
       },
-      "summary": "Command exited 0 after 3 ms; output bytes=0, redacted=0, truncated=false.",
+      "summary": "Command exited 0 after 32 ms; output bytes=270, redacted=0, truncated=false. Sanitized output tail:\n{\"automationCommit\": \"4e62e9478c05bfbc99c9344394bf48a1af22a207\", \"credentialAccess\": \"not-used\", \"entrypoint\": \"action.yml\", \"privateSourceAccess\": \"not-used\", \"status\": \"ok\", \"workflows\": [\".github/workflows/lower-star-summaries.yml\", \".github/workflows/refresh.yml\"]}",
       "evidenceRefs": [
-        "observation:source-diff-check"
-      ]
-    },
-    {
-      "commandRef": "verify-publication",
-      "outcome": "passed",
-      "exitCode": 0,
-      "durationMs": 1567,
-      "startedAt": "2026-09-04T21:49:54.553697Z",
-      "finishedAt": "2026-09-04T21:49:56.121120Z",
-      "observerBasis": "caller-observed-execution",
-      "outcomeConfirmation": {
-        "assertedBy": "codex@workstation",
-        "assertedAt": "2026-09-04T21:49:56.131441Z",
-        "basis": "machine-asserted-contract",
-        "statement": "The caller confirmed plan sha256:a8b1fa76f613e09b166325c3d5f8f4b7e2aca1f02d60307a43b80fb7b7c5be3a and that exit zero machine-asserts the declared success contract for verify-publication; the runner observed exit zero with unchanged project and declared workspace input fingerprints."
-      },
-      "summary": "Command exited 0 after 1567 ms; output bytes=355, redacted=0, truncated=false. Sanitized output tail:\n{\"age_hours\": 2.1, \"candidate_count\": 9087, \"generated_at\": \"2026-09-04T19:44:46.521930+00:00\", \"ref\": \"origin/data\", \"required_blob_sizes\": {\".nojekyll\": 0, \"catalog.json\": 53169206, \"facets.json\": 5177, \"meta.json\": 470, \"search-index.json\": 9963986}, \"revision\": \"a617a0235f423d03c3464039aec3457248a9fd17\", \"status\": \"ok\", \"summary_ready_count\": 9079}",
-      "evidenceRefs": [
-        "observation:verify-publication"
+        "observation:verify-workflow-contract"
       ]
     }
   ],
   "evidenceRefs": [
     {
-      "id": "observation:source-diff-check",
+      "id": "observation:verify-workflow-contract",
       "kind": "summary",
-      "location": "receipt:commands/source-diff-check",
-      "digest": "sha256:61b35712b038b21924afaca0e2322136c6c51df287c6df2bde63aa3512293c2f"
-    },
-    {
-      "id": "observation:verify-publication",
-      "kind": "summary",
-      "location": "receipt:commands/verify-publication",
-      "digest": "sha256:42b4d83da45bb14405e0a15aff5a35f2e6e78fe1b08e34c08b3937296122132a"
+      "location": "receipt:commands/verify-workflow-contract",
+      "digest": "sha256:f74805b0bf52bc809026744359b7506a104fc6437b5c68e5b304a2f351591703"
     }
   ],
   "uncheckedLayers": [],
   "residualRisks": [
-    "The two GitHub Actions summary sources are schema-valid and plan-ready, but no remote Actions metadata, credential, jobs, logs, annotations, artifacts, workflow semantics, or private automation was observed in this source-validation scope.",
-    "The mutable data branch may advance after this source-bound receipt; reproducible consumers must retain the recorded data revision and blob identities."
+    "The public verifier proves only the immutable checkout reference contract; it does not execute or inspect the private action, resolve credentials, or prove a GitHub Actions run."
   ],
   "taskRefs": [],
   "taskReferences": []
