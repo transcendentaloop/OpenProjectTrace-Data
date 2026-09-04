@@ -46,10 +46,33 @@ verification summary. After dispatch:
 4. compare the remote SHA, local remote-tracking SHA, and reported snapshot SHA;
 5. report freshness from `meta.json`, not from the workflow start time alone.
 
-GitHub Actions logs are the remote operational source. They may mention private
-component names or failure metadata, so read a bounded run and do not copy raw
-logs into task evidence. Store only the run locator, conclusion, relevant SHA,
-sanitized error summary, checked layers, and residual uncertainty.
+For routine triage, the two workflow files use separate
+`github-actions-run-summary/v1` sources through the shared `agentctl diagnose`
+path. The adapter reads one bounded page of orchestration metadata only and
+does not access jobs, annotations, logs, artifacts, step output, actors, URLs,
+or private automation content. It requires explicit remote/log opt-in, the
+confirmed diagnostic plan digest, and the exact
+`github:transcendentaloop/OpenProjectTrace-Data:actions-read` credential scope.
+Its receipt keeps only aggregate states, freshness, redaction statistics, and a
+digest over allowlisted metadata.
+
+Prepare the immutable diagnostic plan first:
+
+```bash
+agentctl diagnose plan open-project-trace-data \
+  --include-logs --allow-remote --json > /tmp/open-project-trace-data-plan.json
+```
+
+Inspect the exact repository, workflow files, bounds, credential scope, and
+`planDigest`. A remote summary may run only by passing that saved plan and the
+same digest to `agentctl diagnose run` together with `--include-logs` and
+`--allow-remote`. Planning never resolves credentials or contacts GitHub.
+
+An Actions summary is not test, artifact, deployment, data-publication, or
+runtime-health proof. If deeper investigation needs the GitHub UI or raw logs,
+the repository owner must use their human session and retain only a sanitized
+run locator, conclusion, relevant SHA, checked layers, and residual
+uncertainty; raw remote content does not enter task evidence.
 
 ## Rollback and recovery limits
 

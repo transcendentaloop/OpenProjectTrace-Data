@@ -156,6 +156,14 @@
         "failureOwner": "free-llm",
         "fallback": "The workflow fails closed or publishes only data that already passed the private policy; this public repository does not bypass provider governance.",
         "statusCommandRef": null
+      },
+      {
+        "capabilityRef": "safe-diagnostic-summary",
+        "versionRange": "workspace.safe-diagnostic-summary/v1",
+        "requiredFor": "Bounded, redacted orchestration-state summaries for the two repository-owned publication workflows without retaining raw Actions logs, jobs, annotations, artifacts, identities, or credentials.",
+        "failureOwner": "agent-registry",
+        "fallback": "Use the GitHub Actions UI under the repository owner's session, retain only a sanitized run locator/conclusion/SHA summary, and keep test, artifact, deployment, and publication layers explicitly unverified.",
+        "statusCommandRef": null
       }
     ]
   },
@@ -173,21 +181,21 @@
   ],
   "logSources": [
     {
-      "id": "github-publication-runs",
-      "component": "open-project-trace-data-publication",
+      "id": "github-refresh-runs",
+      "component": "open-project-trace-data-refresh-publication",
       "environments": ["github-publication"],
-      "kind": "event-store",
+      "kind": "ci-run-summary",
       "boundary": "remote",
       "selector": {
-        "adapter": "unregistered",
+        "adapter": "github-actions-run-summary/v1",
         "repository": "transcendentaloop/OpenProjectTrace-Data",
-        "workflows": ["refresh.yml", "lower-star-summaries.yml"]
+        "workflow": "refresh.yml"
       },
       "readOnly": true,
       "requiresUserOptIn": true,
       "boundedRead": {
         "timeoutSeconds": 30,
-        "maxLines": 200,
+        "maxLines": 20,
         "maxBytes": 131072,
         "defaultLookbackSeconds": 86400
       },
@@ -195,10 +203,40 @@
         "expectedMaxAgeSeconds": 86400,
         "clock": "UTC"
       },
-      "correlationFields": ["run_id", "workflow", "event", "head_sha", "data_sha", "generated_at"],
+      "correlationFields": ["head_sha"],
       "sensitivityClass": "internal",
       "redactionProfile": "workspace-default/v1",
-      "credentialScopeRef": null,
+      "credentialScopeRef": "github:transcendentaloop/OpenProjectTrace-Data:actions-read",
+      "runbookRef": "docs/publication-operations.md",
+      "fallbackSourceRefs": []
+    },
+    {
+      "id": "github-lower-star-summary-runs",
+      "component": "open-project-trace-data-lower-star-summaries",
+      "environments": ["github-publication"],
+      "kind": "ci-run-summary",
+      "boundary": "remote",
+      "selector": {
+        "adapter": "github-actions-run-summary/v1",
+        "repository": "transcendentaloop/OpenProjectTrace-Data",
+        "workflow": "lower-star-summaries.yml"
+      },
+      "readOnly": true,
+      "requiresUserOptIn": true,
+      "boundedRead": {
+        "timeoutSeconds": 30,
+        "maxLines": 20,
+        "maxBytes": 131072,
+        "defaultLookbackSeconds": 86400
+      },
+      "freshness": {
+        "expectedMaxAgeSeconds": 86400,
+        "clock": "UTC"
+      },
+      "correlationFields": ["head_sha"],
+      "sensitivityClass": "internal",
+      "redactionProfile": "workspace-default/v1",
+      "credentialScopeRef": "github:transcendentaloop/OpenProjectTrace-Data:actions-read",
       "runbookRef": "docs/publication-operations.md",
       "fallbackSourceRefs": []
     }
