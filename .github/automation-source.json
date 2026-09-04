@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "open-project-trace-data.automation-source/v1",
+  "ownerProject": "open-project-trace",
+  "commit": "4e62e9478c05bfbc99c9344394bf48a1af22a207",
+  "entrypoint": "action.yml",
+  "workflows": [
+    ".github/workflows/lower-star-summaries.yml",
+    ".github/workflows/refresh.yml"
+  ],
+  "evidenceBoundary": "The commit was resolved from the clean owner checkout's local origin/main ref and verified to contain the root composite action. This public record contains no repository URL, credential, private source, or claim about later owner-repository revisions."
+}

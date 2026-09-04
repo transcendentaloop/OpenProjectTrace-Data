@@ -4,7 +4,7 @@
   "projectId": "open-project-trace-data",
   "boundaryRef": "resource-infra-os:project:open-project-trace-data",
   "profile": "publication",
-  "reviewedAt": "2026-08-31",
+  "reviewedAt": "2026-09-05",
   "reviewPolicy": {
     "maxAgeDays": 30,
     "validationReceiptPath": ".agents/validation-receipt.json"
@@ -76,6 +76,39 @@
       "evidenceProduced": "Git diff-check exit code.",
       "runbookRef": "docs/publication-operations.md",
       "budgets": ["minimal", "standard", "diagnostic"]
+    },
+    {
+      "id": "verify-workflow-contract",
+      "title": "Verify immutable private automation checkout references",
+      "category": "verify",
+      "purpose": "Require both public workflows to use the same reviewed full automation commit without resolving credentials or private source.",
+      "argv": [
+        "python3",
+        "scripts/verify-workflow-contract.py"
+      ],
+      "networkBoundary": "none",
+      "cwd": ".",
+      "risk": "read-only",
+      "environments": [
+        "local"
+      ],
+      "timeoutSeconds": 30,
+      "preconditions": [
+        "The reviewed automation source record and workflow files are present in this checkout."
+      ],
+      "toolRefs": [
+        "python"
+      ],
+      "credentialScopeRefs": [],
+      "when": "After changing either scheduled workflow or the private automation source commit.",
+      "successContract": "Both workflows use the exact full commit declared by automation-source.json and retain the bounded secret-backed checkout contract.",
+      "evidenceProduced": "A bounded JSON summary containing the public commit, entrypoint, workflow paths, and explicit no-credential boundary.",
+      "runbookRef": "docs/publication-operations.md",
+      "budgets": [
+        "minimal",
+        "standard",
+        "diagnostic"
+      ]
     },
     {
       "id": "verify-publication",

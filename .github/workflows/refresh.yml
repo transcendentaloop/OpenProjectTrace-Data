@@ -53,6 +53,8 @@ jobs:
         if: steps.config.outputs.ready == 'true'
         with:
           repository: ${{ secrets.AUTOMATION_REPOSITORY }}
+          # Immutable owner-repository commit recorded in automation-source.json.
+          ref: 4e62e9478c05bfbc99c9344394bf48a1af22a207
           ssh-key: ${{ secrets.AUTOMATION_DEPLOY_KEY }}
           path: .automation
           fetch-depth: 1
