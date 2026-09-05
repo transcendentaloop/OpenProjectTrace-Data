@@ -1,0 +1,21 @@
+{
+  "status": "ok",
+  "catalog": 9092,
+  "existing": 9090,
+  "pruned": 197,
+  "seeded": 0,
+  "due": 8176,
+  "checked": 500,
+  "unchanged": 110,
+  "baselined": 0,
+  "deferred_model": 370,
+  "attempted": 20,
+  "updated": 2,
+  "failed": 18,
+  "error_codes": [
+    "empty_summary",
+    "http_503"
+  ],
+  "model": "openprojecttrace-summary",
+  "blocked_until": null
+}

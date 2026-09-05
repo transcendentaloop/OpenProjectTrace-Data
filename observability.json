@@ -1,0 +1,695 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-05T16:11:06.672596+00:00",
+  "catalog": {
+    "candidate_count": 9092,
+    "summary_count": 9092,
+    "summary_ready_count": 9079,
+    "missing_summary_count": 0,
+    "orphan_summary_count": 200
+  },
+  "summary_generation": {
+    "last_run": {
+      "status": "ok",
+      "catalog": 9092,
+      "existing": 9090,
+      "pruned": 197,
+      "seeded": 0,
+      "due": 8176,
+      "checked": 500,
+      "unchanged": 110,
+      "baselined": 0,
+      "deferred_model": 370,
+      "attempted": 20,
+      "updated": 2,
+      "failed": 18,
+      "error_codes": [
+        "empty_summary",
+        "http_503"
+      ],
+      "model": "openprojecttrace-summary",
+      "blocked_until": null
+    },
+    "runtime": [
+      {
+        "provider": "freellm",
+        "last_run_at": "2026-09-05T08:09:27.399751+00:00",
+        "quota_blocked_until": null,
+        "last_error_code": "http_503",
+        "updated_at": "2026-09-05T08:09:27.399751+00:00"
+      },
+      {
+        "provider": "gemini",
+        "last_run_at": "2026-07-31T06:19:51.82628+00:00",
+        "quota_blocked_until": "2026-08-01T06:20:51.82628+00:00",
+        "last_error_code": "quota_limited",
+        "updated_at": "2026-07-31T06:19:51.82628+00:00"
+      },
+      {
+        "provider": "openai_compat",
+        "last_run_at": "2026-09-05T17:23:48.37038+00:00",
+        "quota_blocked_until": null,
+        "last_error_code": "http_404",
+        "updated_at": "2026-09-05T17:23:48.37038+00:00"
+      }
+    ]
+  },
+  "external_enrichment": {
+    "schema_version": 1,
+    "generated_at": "2026-09-05T15:46:52.311669+00:00",
+    "shards": 28,
+    "current_shard": 15,
+    "completed_shards": 0,
+    "degraded_shards": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "last_full_cycle_completed_at": null,
+    "shard_states": [
+      {
+        "shard": 0,
+        "last_attempted_at": "2026-09-05T03:14:49.890710+00:00",
+        "status": "degraded",
+        "selected": 326,
+        "ok": 217,
+        "partial": 109,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 1,
+        "last_attempted_at": "2026-09-05T03:14:49.890710+00:00",
+        "status": "degraded",
+        "selected": 340,
+        "ok": 220,
+        "partial": 120,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 2,
+        "last_attempted_at": "2026-09-05T03:14:49.890710+00:00",
+        "status": "degraded",
+        "selected": 342,
+        "ok": 228,
+        "partial": 114,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 3,
+        "last_attempted_at": "2026-09-05T03:14:49.890710+00:00",
+        "status": "degraded",
+        "selected": 327,
+        "ok": 219,
+        "partial": 108,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 4,
+        "last_attempted_at": "2026-09-05T08:54:45.379670+00:00",
+        "status": "degraded",
+        "selected": 315,
+        "ok": 203,
+        "partial": 112,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 5,
+        "last_attempted_at": "2026-09-05T08:54:45.379670+00:00",
+        "status": "degraded",
+        "selected": 332,
+        "ok": 218,
+        "partial": 114,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 6,
+        "last_attempted_at": "2026-09-05T08:54:45.379670+00:00",
+        "status": "degraded",
+        "selected": 337,
+        "ok": 213,
+        "partial": 124,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "github_releases_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 7,
+        "last_attempted_at": "2026-09-05T08:54:45.379670+00:00",
+        "status": "degraded",
+        "selected": 306,
+        "ok": 194,
+        "partial": 112,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 8,
+        "last_attempted_at": "2026-09-05T12:30:21.314932+00:00",
+        "status": "degraded",
+        "selected": 342,
+        "ok": 240,
+        "partial": 102,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 9,
+        "last_attempted_at": "2026-09-05T12:30:21.314932+00:00",
+        "status": "degraded",
+        "selected": 367,
+        "ok": 225,
+        "partial": 142,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 10,
+        "last_attempted_at": "2026-09-05T12:30:21.314932+00:00",
+        "status": "degraded",
+        "selected": 304,
+        "ok": 194,
+        "partial": 110,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 11,
+        "last_attempted_at": "2026-09-05T12:30:21.314932+00:00",
+        "status": "degraded",
+        "selected": 347,
+        "ok": 216,
+        "partial": 131,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 12,
+        "last_attempted_at": "2026-09-05T15:46:52.311669+00:00",
+        "status": "degraded",
+        "selected": 338,
+        "ok": 217,
+        "partial": 121,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 13,
+        "last_attempted_at": "2026-09-05T15:46:52.311669+00:00",
+        "status": "degraded",
+        "selected": 324,
+        "ok": 206,
+        "partial": 118,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 14,
+        "last_attempted_at": "2026-09-05T15:46:52.311669+00:00",
+        "status": "degraded",
+        "selected": 312,
+        "ok": 203,
+        "partial": 109,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 15,
+        "last_attempted_at": "2026-09-05T15:46:52.311669+00:00",
+        "status": "degraded",
+        "selected": 338,
+        "ok": 217,
+        "partial": 121,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 16,
+        "last_attempted_at": "2026-09-04T19:21:49.009673+00:00",
+        "status": "degraded",
+        "selected": 293,
+        "ok": 181,
+        "partial": 112,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 17,
+        "last_attempted_at": "2026-09-04T19:21:49.009673+00:00",
+        "status": "degraded",
+        "selected": 350,
+        "ok": 221,
+        "partial": 129,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_releases_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 18,
+        "last_attempted_at": "2026-09-04T19:21:49.009673+00:00",
+        "status": "degraded",
+        "selected": 296,
+        "ok": 189,
+        "partial": 107,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 19,
+        "last_attempted_at": "2026-09-04T19:21:49.009673+00:00",
+        "status": "degraded",
+        "selected": 308,
+        "ok": 209,
+        "partial": 99,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 20,
+        "last_attempted_at": "2026-09-04T22:50:19.629287+00:00",
+        "status": "degraded",
+        "selected": 309,
+        "ok": 193,
+        "partial": 116,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 21,
+        "last_attempted_at": "2026-09-04T22:50:19.629287+00:00",
+        "status": "degraded",
+        "selected": 308,
+        "ok": 196,
+        "partial": 112,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 22,
+        "last_attempted_at": "2026-09-04T22:50:19.629287+00:00",
+        "status": "degraded",
+        "selected": 322,
+        "ok": 215,
+        "partial": 107,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 23,
+        "last_attempted_at": "2026-09-04T22:50:19.629287+00:00",
+        "status": "degraded",
+        "selected": 323,
+        "ok": 207,
+        "partial": 116,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 24,
+        "last_attempted_at": "2026-09-05T01:02:37.356312+00:00",
+        "status": "degraded",
+        "selected": 307,
+        "ok": 188,
+        "partial": 119,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 25,
+        "last_attempted_at": "2026-09-05T01:02:37.356312+00:00",
+        "status": "degraded",
+        "selected": 328,
+        "ok": 201,
+        "partial": 127,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 26,
+        "last_attempted_at": "2026-09-05T01:02:37.356312+00:00",
+        "status": "degraded",
+        "selected": 324,
+        "ok": 206,
+        "partial": 118,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "registry_downloads_unavailable"
+        ]
+      },
+      {
+        "shard": 27,
+        "last_attempted_at": "2026-09-05T01:02:37.356312+00:00",
+        "status": "degraded",
+        "selected": 324,
+        "ok": 207,
+        "partial": 117,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "docker_registry_unavailable",
+          "github_release_pagination_incomplete",
+          "registry_downloads_unavailable"
+        ]
+      }
+    ]
+  },
+  "github_api_window_coverage": {
+    "schema_version": 1,
+    "generated_at": "2026-09-05T16:11:06.672596+00:00",
+    "shards": 7,
+    "current_shard": 3,
+    "completed_shards": 0,
+    "degraded_shards": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "last_full_cycle_completed_at": null,
+    "shard_states": [
+      {
+        "shard": 0,
+        "last_attempted_at": "2026-09-05T03:39:20.949674+00:00",
+        "status": "degraded",
+        "selected": 1252,
+        "ok": 1197,
+        "partial": 55,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable"
+        ]
+      },
+      {
+        "shard": 1,
+        "last_attempted_at": "2026-09-05T09:18:25.207669+00:00",
+        "status": "degraded",
+        "selected": 1341,
+        "ok": 1214,
+        "partial": 127,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable",
+          "github_issue_search_unavailable",
+          "github_pr_search_unavailable"
+        ]
+      },
+      {
+        "shard": 2,
+        "last_attempted_at": "2026-09-05T12:55:22.547826+00:00",
+        "status": "degraded",
+        "selected": 1325,
+        "ok": 1260,
+        "partial": 65,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable"
+        ]
+      },
+      {
+        "shard": 3,
+        "last_attempted_at": "2026-09-05T16:11:06.672596+00:00",
+        "status": "degraded",
+        "selected": 1289,
+        "ok": 1136,
+        "partial": 153,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable",
+          "github_issue_search_unavailable",
+          "github_pr_search_unavailable"
+        ]
+      },
+      {
+        "shard": 4,
+        "last_attempted_at": "2026-09-04T19:44:46.521930+00:00",
+        "status": "degraded",
+        "selected": 1285,
+        "ok": 1208,
+        "partial": 77,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable"
+        ]
+      },
+      {
+        "shard": 5,
+        "last_attempted_at": "2026-09-04T23:13:33.569540+00:00",
+        "status": "degraded",
+        "selected": 1302,
+        "ok": 1208,
+        "partial": 94,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable",
+          "github_issue_search_unavailable",
+          "github_pr_search_unavailable"
+        ]
+      },
+      {
+        "shard": 6,
+        "last_attempted_at": "2026-09-05T01:26:18.626906+00:00",
+        "status": "degraded",
+        "selected": 1294,
+        "ok": 1212,
+        "partial": 82,
+        "failed": 0,
+        "executor_failed": 0,
+        "error_codes": [
+          "github_commit_activity_unavailable",
+          "github_issue_search_unavailable",
+          "github_pr_search_unavailable"
+        ]
+      }
+    ]
+  },
+  "source_assurance": {
+    "github_repository_metadata": {
+      "status": "authoritative_when_refresh_succeeds",
+      "detail": "仓库身份、Fork、创建/推送时间、许可、公开 PR/Issue 与 Release 元数据直接来自 GitHub GraphQL；五年以上项目的 Star 按既定规则冻结，而非当前实时值。"
+    },
+    "github_archive_events": {
+      "status": "not_verified",
+      "detail": "事件库缺失已被证实；事件派生指标保留供审计，但在完成独立抽样对账前已从评分、异常判定和语义地图中隔离。"
+    },
+    "github_event_coverage_audit": {
+      "status": "not_verified",
+      "detail": "最近抽样 3 个仓库；下界冲突 3；原始表与聚合表：matches_accessible_raw_table。"
+    },
+    "registry_and_release_downloads": {
+      "status": "coverage_dependent",
+      "detail": "仅在成功分片巡检后可解释；网络/API 异常会以 partial 或 failed 公开，而不再伪装成 no_exact_match。"
+    },
+    "github_release_metrics": {
+      "status": "coverage_dependent",
+      "detail": "过去一年 Release 次数与版本下载由 GitHub REST 分页取得：已核验 9058 个，部分覆盖 28 个，未检查 6 个；最近 API 检查 2026-09-05T15:46:52.311669+00:00。"
+    },
+    "github_api_window_metrics": {
+      "status": "coverage_dependent",
+      "detail": "30天新 PR/Issue 与近四周提交直接来自 GitHub API：已验证 8435 个，部分或旧值 652 个，未检查 5 个；最近 API 检查 2026-09-05T16:11:06.672596+00:00；稳定分片覆盖 0/7。"
+    }
+  },
+  "warnings": [
+    {
+      "id": "github-archive-event-metrics-unverified",
+      "severity": "warning",
+      "title": "GitHub Archive 事件指标已从评分隔离",
+      "detail": "Star 事件曾发现缺失；增长、Fork、PR、Issue、Push、Release 与贡献者统计保留供审计，但在独立校验前不参与排序、评分或异常判定。"
+    },
+    {
+      "id": "external-enrichment-sharded",
+      "severity": "info",
+      "title": "注册表与 Release 富化按分片轮换",
+      "detail": "只有成功覆盖全部分片后，外部生态字段才代表一次完整巡检；失败或部分失败不会再被标作无匹配。"
+    },
+    {
+      "id": "llm-summary-generated",
+      "severity": "info",
+      "title": "项目摘要为模型生成内容",
+      "detail": "摘要状态可观测，但文本质量需以抽样复核和来源 README 为准，不应当作 GitHub 的原始事实字段。"
+    },
+    {
+      "id": "github-release-pagination-partial",
+      "severity": "warning",
+      "title": "部分高频 Release 仓库尚未完成年度分页",
+      "detail": "GitHub API 已完整核验 9058 个仓库；另有 28 个仓库达到分页保护上限，年度发布次数不会参与评分，等待下轮补齐。"
+    },
+    {
+      "id": "github-api-window-metrics-degraded",
+      "severity": "warning",
+      "title": "部分 GitHub API 窗口指标未完成更新",
+      "detail": "已验证 8435 个仓库；部分或保留旧值 652 个。未完成项不会使用 API 窗口指标评分。"
+    },
+    {
+      "id": "github-api-window-coverage-incomplete",
+      "severity": "warning",
+      "title": "GitHub API 窗口指标尚未完成全量轮换",
+      "detail": "已成功完成 0/7 个稳定分片；降级分片：[0, 1, 2, 3, 4, 5, 6]。未完成项目不使用窗口指标评分。"
+    },
+    {
+      "id": "github-event-coverage-audit",
+      "severity": "warning",
+      "title": "GitHub 事件字段核验未通过或尚未完成",
+      "detail": "抽样 3 个仓库，发现 3 项下界冲突；事件派生字段继续隔离。"
+    }
+  ]
+}
