@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-03T09:04:40.613450+00:00",
+  "window": {
+    "activity_days": 30,
+    "release_days": 365
+  },
+  "summary": {
+    "status": "inconsistent",
+    "samples": 3,
+    "lower_bound_violations": 3,
+    "raw_rollup_status": "matches_accessible_raw_table",
+    "raw_rollup_mismatches": 0
+  },
+  "samples": [
+    {
+      "repo": "microsoft/vscode",
+      "aggregate": {
+        "stars_30d": 463,
+        "forks_30d": 184,
+        "prs_30d": 463,
+        "issues_30d": 1544,
+        "pushes_30d": 409,
+        "releases_365d": 7
+      },
+      "github_api": {
+        "prs_created_30d": 2579,
+        "issues_created_30d": 2697,
+        "commits_28d": 3177,
+        "releases_365d_api": 62,
+        "release_metrics_status": "verified"
+      },
+      "verdict": {
+        "pr_issue_lower_bound_consistent": false,
+        "release_lower_bound_consistent": false
+      },
+      "raw_matches_rollup": true
+    },
+    {
+      "repo": "ollama/ollama",
+      "aggregate": {
+        "stars_30d": 252,
+        "forks_30d": 64,
+        "prs_30d": 46,
+        "issues_30d": 48,
+        "pushes_30d": 21,
+        "releases_365d": 22
+      },
+      "github_api": {
+        "prs_created_30d": 357,
+        "issues_created_30d": 204,
+        "commits_28d": 84,
+        "releases_365d_api": 106,
+        "release_metrics_status": "verified"
+      },
+      "verdict": {
+        "pr_issue_lower_bound_consistent": false,
+        "release_lower_bound_consistent": false
+      },
+      "raw_matches_rollup": true
+    },
+    {
+      "repo": "vercel/next.js",
+      "aggregate": {
+        "stars_30d": 127,
+        "forks_30d": 117,
+        "prs_30d": 114,
+        "issues_30d": 243,
+        "pushes_30d": 396,
+        "releases_365d": 82
+      },
+      "github_api": {
+        "prs_created_30d": 973,
+        "issues_created_30d": 206,
+        "commits_28d": 651,
+        "releases_365d_api": 563,
+        "release_metrics_status": "verified"
+      },
+      "verdict": {
+        "pr_issue_lower_bound_consistent": false,
+        "release_lower_bound_consistent": false
+      },
+      "raw_matches_rollup": true
+    }
+  ],
+  "methodology": {
+    "aggregate": "github.repo_events_per_day",
+    "raw_probe": "compared",
+    "github_api": "GitHub Search counts created PR/Issue; commit_activity is a non-equivalent push-activity proxy; release API is paginated.",
+    "privacy": "No endpoint, credential, raw event, or actor identity is published."
+  }
+}
