@@ -1,0 +1,16 @@
+{
+  "schema_version": 3,
+  "generated_at": "2026-10-31T17:56:48.720642+00:00",
+  "mode": "daily",
+  "candidate_count": 9304,
+  "min_stars": 5000,
+  "active_days": 730,
+  "github_candidate_count": 73382,
+  "github_candidate_min_stars": 1000,
+  "summary_count": 9304,
+  "summary_ready_count": 9086,
+  "missing_summary_count": 0,
+  "orphan_summary_count": 100,
+  "github_window_metrics_updated_at": "2026-10-31T17:56:48.720642+00:00",
+  "github_window_metrics_shards": 7
+}
